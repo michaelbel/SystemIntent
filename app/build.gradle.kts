@@ -25,29 +25,29 @@ kotlin {
 }
 
 android {
-    namespace = "org.michaelbel.myapplication"
+    namespace = "org.michaelbel.systemintent"
     compileSdk = libs.versions.compile.sdk.get().toInt()
 
     defaultConfig {
-        applicationId = "org.michaelbel.myapplication"
+        applicationId = "org.michaelbel.systemintent"
         minSdk = libs.versions.min.sdk.get().toInt()
         targetSdk = libs.versions.target.sdk.get().toInt()
         versionCode = gitCommitsCount
         versionName = "1.0.0"
     }
 
-    signingConfigs {
+    /*signingConfigs {
         getByName("debug") {
             keyAlias = "myapplication"
             keyPassword = "password"
             storeFile = rootProject.file(".github/debug-key.jks")
             storePassword = "password"
         }
-    }
+    }*/
 
     buildTypes {
         debug {
-            signingConfig = signingConfigs.getByName("debug")
+            //signingConfig = signingConfigs.getByName("debug")
         }
     }
 
@@ -57,7 +57,7 @@ android {
 }
 
 base {
-    archivesName.set("MyApplication-v${android.defaultConfig.versionName}(${android.defaultConfig.versionCode})")
+    archivesName.set("SystemIntent-v${android.defaultConfig.versionName}(${android.defaultConfig.versionCode})")
 }
 
 dependencies {
