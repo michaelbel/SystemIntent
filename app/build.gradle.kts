@@ -1,5 +1,3 @@
-import java.nio.charset.StandardCharsets
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,17 +5,9 @@ plugins {
 }
 
 private val gitCommitsCount: Int by lazy {
-    try {
-        val isWindows = System.getProperty("os.name").contains("Windows", ignoreCase = true)
-        val processBuilder = when {
-            isWindows -> ProcessBuilder("cmd", "/c", "git", "rev-list", "--count", "HEAD")
-            else -> ProcessBuilder("git", "rev-list", "--count", "HEAD")
-        }
-        processBuilder.redirectErrorStream(true)
-        processBuilder.start().inputStream.bufferedReader(StandardCharsets.UTF_8).readLine().trim().toInt()
-    } catch (_: Exception) {
-        1
-    }
+    ProcessBuilder("git", "rev-list", "--count", "HEAD")
+        .redirectErrorStream(true)
+        .start().inputStream.bufferedReader().readLine().trim().toInt()
 }
 
 kotlin {
@@ -35,15 +25,6 @@ android {
         versionCode = gitCommitsCount
         versionName = "1.0.0"
     }
-
-    /*signingConfigs {
-        getByName("debug") {
-            keyAlias = "myapplication"
-            keyPassword = "password"
-            storeFile = rootProject.file(".github/debug-key.jks")
-            storePassword = "password"
-        }
-    }*/
 
     buildTypes {
         debug {
@@ -64,8 +45,8 @@ dependencies {
     implementation(libs.google.material)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.core.splashscreen)
+    debugImplementation(libs.androidx.compose.ui.tooling)
 }
 
 tasks.register("printVersion") {
