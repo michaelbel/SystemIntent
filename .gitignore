@@ -1,11 +1,3 @@
 .claude
-.gradle
 .idea
 !.idea/icon.svg
-.externalNativeBuild
-.cxx
-/build
-/captures
-*.iml
-*.DS_Store
-local.properties
